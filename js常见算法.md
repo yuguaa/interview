@@ -165,10 +165,15 @@ var arr = [11, 22, 33, 44, 8118, 8900, 9000, 9900];
     function maxStr(str) {
         let obj = {};
         let letter;
+        //遍历str
         for (var i = 0; i < str.length; i++) {
+            //当前字符
             letter = str[i];
+            //obj记录遍历到的字符
             if (!obj[letter]) {   // 第一次放进去
+    			//如果第一次遍历到
                 obj[letter] = 1;
+                //如果已经遍历到
             } else {
                 obj[letter]++;
             }
