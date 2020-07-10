@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="addr">河南-郑州</p>
+</body>
+<script>
+    // 下拉菜单 (province省份)
+    // 联动下拉菜单:左侧的菜单控制右侧菜单的数据
+    // var provinceArr =["河南","湖南","河北"];
+    // var cityArr =[
+    //     ["郑州","开封","洛阳"],
+    //     ["长沙","张家界","湘潭"],
+    //     ["石家庄","保定","邯郸"]
+    // ];
+    // 封装三个对象，每个对象有一个name属性和一个cites数组属性
+    var info = [{
+            name: "河南",
+            cites: ["郑州", "开封", "洛阳"]
+        },
+        {
+            name: "湖南",
+            cites: ["长沙", "张家界", "湘潭"]
+        },
+        {
+            name: "河北",
+            cites: ["石家庄", "保定", "邯郸"]
+        }
+    ];
+    var provinceSel = document.createElement("select");
+    // 省份
+    for (var i = 0; i < info.length; i++) {
+        var opt = document.createElement("option");
+        //    对象
+        opt.textContent = info[i].name;
+        provinceSel.appendChild(opt);
+    }
+    document.body.appendChild(provinceSel);
+    // 城市的select
+    var citySel = document.createElement("select");
+    // 默认城市大数组里面的第一个小数组就可以了
+    for (var i = 0; i < info[0].cites.length; i++) {
+        var opt = document.createElement("option");
+        //    cityArr>>>citySmallArr>>city
+        opt.textContent = info[0].cites[i];
+        citySel.appendChild(opt);
+    }
+    document.body.appendChild(citySel);
+    // 为省份绑定事件，切换数据
+    provinceSel.onchange = function (e) {
+        // 先把右侧城市的select清空
+        citySel.innerHTML = "";
+        // 先选择省份
+        var pro = info[provinceSel.selectedIndex];
+        // 根据选择的省份拿到对应的城市进行数据替换
+        for (var i = 0; i < pro.cites.length; i++) {
+            var opt = document.createElement("option");
+            //    cityArr>>>citySmallArr>>city
+            opt.textContent = pro.cites[i];
+            citySel.appendChild(opt);
+        }
+        //   刷新
+        refresh();
+    }
+    citySel.onchange = function () {
+        refresh();
+    }
+
+    function refresh() {
+        var pro = info[provinceSel.selectedIndex];
+        var city = pro.cites[citySel.selectedIndex];
+        var addr = document.getElementById("addr");
+        addr.textContent = pro.name + "-" + city;
+    }
+</script>
+
+</html>
